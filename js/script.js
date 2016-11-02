@@ -45,6 +45,9 @@ app.currentCombo = {};
 
 app.renderKeys = function() {
 	var html = app.activeKeys.map(function(code) {
+		if (code === undefined) {
+			code = 'Other'
+		} 
 		return `
 			<div class="key">${code}</div>
 		`
@@ -92,7 +95,8 @@ app.init = function() {
 	//Run a tutorial first
 	//Then start the game
 	//Give them 2mins to get as many command right, each is 10 points
-	//When they get one wrong...lose points?
+	//When they get one wrong...lose points? 
+	// when they get one right extra time - positive not negative reinforcement 
 	app.keyEvents();
 	app.randomCombo();
 };
