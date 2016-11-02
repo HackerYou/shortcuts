@@ -1,5 +1,7 @@
 var app = {};
 
+app.score = 0;
+
 app.keyCodes = {
 	'65': 'A',
 	'67': 'C',
@@ -61,9 +63,18 @@ app.checkCombo = function() {
 		if(key === app.currentCombo.combo[i]) {
 			return true;
 		}
-	});
-	
-	app.activeKeys = [];
+	}).filter(function(value) { return value});
+
+	if(keys.length === 2) {
+		app.score++;
+		$('.points').text(app.score);
+	}
+	app.randomCombo();
+	setTimeout(function() {
+		console.log('hey');
+		app.activeKeys = [];
+		app.renderKeys();
+	},200);
 }
 
 app.keyEvents = function() {
