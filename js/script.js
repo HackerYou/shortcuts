@@ -116,13 +116,23 @@ app.timer = function() {
 };
 
 app.fanFair = function() {
-	for(var i = 0; i < 50; i++) {
+	for(var i = 0; i < 100; i++) {
 		app.fanFairBalls.push({
 			colour: getRandomItem(app.fanFairColours),
 			life: 1,
 			radius: Math.floor(Math.random() * 5) + 2,
 			x: app.pointsCanvas.width() / 2,
-			y: app.pointsCanvas.height() / 2
+			y: app.pointsCanvas.height() / 2,
+			gravity: (function() {
+				var grav = [-0.5,0.5]
+				return getRandomItem(grav);
+			})(),
+			dir: (function() {
+				if(randomNum(10) > 5) {
+					return 'pos';
+				}
+				return 'neg';
+			})()
 		});
 	}
 }
@@ -137,8 +147,19 @@ app.gameLoop = function() {
 		app.ctx.fillStyle = ball.colour;
 		app.ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI);
 		app.ctx.fill();
-		ball.x -= randomNum(15) - 8;
-		ball.y -= randomNum(18) - 3;
+		if(ball.dir === 'pos') {
+			ball.x += randomNum(20);
+		}
+		else {
+			ball.x -= randomNum(20);
+		}
+
+		if(ball.gravity > 0) {
+			ball.y += randomNum(18) - 3;
+		}
+		else {
+			ball.y -= randomNum(18) - 5;
+		}
 		if(ball.opacity === 0) {
 			app.fanFairBalls.splice(i,1);
 		}
