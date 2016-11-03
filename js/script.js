@@ -14,35 +14,11 @@ app.keyCodes = {
 	'86': 'V',
 	'88': 'X',
 	'91': 'CMD',
-	'17': 'CTL'
+	'17': 'CTL',
+	'90': 'Z'
 };
 
-app.combos = [
-	{
-		title: 'Save',
-		combo: ['CMD','S']
-	},
-	{
-		title: 'Cut',
-		combo: ['CMD','X']
-	},
-	{
-		title: 'Copy',
-		combo: ['CMD', 'C']
-	},
-	{
-		title: 'Select All',
-		combo: ['CMD', 'A']
-	},
-	{
-		title: 'Paste',
-		combo: ['CMD', 'V']
-	},
-	{
-		title: 'Refresh',
-		combo: ['CMD', 'R']
-	}
-];
+
 
 app.fanFairColours = ['#FFD636','#FF5912','#F28C4B','#47A6FF','#7F2B7D','#64CC41'];
 
@@ -185,6 +161,46 @@ app.init = function() {
 		app.timer();
 		app.gameInterval = setInterval(app.gameLoop,1000/60);
 	});
+
+	var commandCtrl;
+
+	if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+		commandCtrl = 'CMD';
+	}
+	else {
+		commandCtrl = 'CTL';
+	}
+
+	app.combos = [
+		{
+			title: 'Save',
+			combo: [commandCtrl,'S']
+		},
+		{
+			title: 'Cut',
+			combo: [commandCtrl,'X']
+		},
+		{
+			title: 'Copy',
+			combo: [commandCtrl, 'C']
+		},
+		{
+			title: 'Select All',
+			combo: [commandCtrl, 'A']
+		},
+		{
+			title: 'Paste',
+			combo: [commandCtrl, 'V']
+		},
+		{
+			title: 'Refresh',
+			combo: [commandCtrl, 'R']
+		},
+		{
+			title: 'Undo',
+			combo: [commandCtrl,'Z']
+		}
+	];
 };
 
 $(app.init);
