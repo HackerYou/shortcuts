@@ -13,7 +13,8 @@ app.keyCodes = {
 	'83': 'S',
 	'86': 'V',
 	'88': 'X',
-	'91': 'CMD'
+	'91': 'CMD',
+	'17': 'CTL'
 };
 
 app.combos = [
@@ -111,6 +112,9 @@ app.timer = function() {
 		if(app.time === 0) {
 			clearInterval(app.interval);
 			clearInterval(app.gameInterval);
+			$(document).off('keydown');
+			$('.final-screen').find('span').text(app.score);
+			$('.final-screen').addClass('show');
 		}
 	},1000);
 };
